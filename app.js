@@ -1,5 +1,4 @@
-import descriptions from "./descriptions.json" assert { type: "json" };
-
+const DESCRIPTIONS_URL = "descriptions.json";
 const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast?";
 
 const params = new URLSearchParams({
@@ -11,7 +10,11 @@ const params = new URLSearchParams({
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    const data = await fetch(`${WEATHER_API_URL}${params}`);
+    
+    let data = await fetch(DESCRIPTIONS_URL);
+    const descriptions = await data.json();
+
+    data = await fetch(`${WEATHER_API_URL}${params}`);
     const weatherData = await data.json();
 
     document.getElementById("temp").innerText =
